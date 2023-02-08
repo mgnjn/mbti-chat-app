@@ -1,6 +1,14 @@
 {
   "dependencies": {
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2",
     "expo-cli": "^6.3.0",
-    "global": "^4.4.0"
+    "global": "^4.4.0",
+    "husky": "^8.0.3"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
