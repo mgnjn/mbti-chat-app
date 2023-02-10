@@ -3,4 +3,9 @@ class UsersController < ApplicationController
     @users = User.all
     render json: @users
   end
+
+  def create
+    @users = User.all
+    render json: @users
+  end
 end
