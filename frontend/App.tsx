@@ -1,29 +1,39 @@
+import React from "react";
 import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { AppRegistry } from "react-native";
+import { registerRootComponent } from "expo";
 import HomeScreen from "./components/HomeScreen";
 import ExitScreen from "./components/ExitScreen";
-import { Screens } from "./types";
 
 export type RootStackParamList = {
   Home: undefined;
   Exit: undefined;
 };
 
-const Screen: string = Screens.Home;
-
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-export default function App() {
+// setup for ApolloClient
+const serverLink = "http://localhost:3000/graphql";
+const client = new ApolloClient({
+  uri: serverLink,
+  cache: new InMemoryCache(),
+});
+
+const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name={Screen} component={HomeScreen} />
-        <Stack.Screen name="Exit" component={ExitScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <ApolloProvider client={client}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Exit" component={ExitScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ApolloProvider>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -33,3 +43,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+export default registerRootComponent(App);
