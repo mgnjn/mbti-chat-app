@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { View, Button, Text } from "react-native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../App";
+import { HomeScreenProps } from "../navigation/types";
 import { useQuery } from "@apollo/client";
-import { User, UserResponse } from "../types/types";
+import { User } from "../types/types";
 import { GET_USERS } from "../graphql/queries";
 
-type Props = NativeStackScreenProps<RootStackParamList, "Home">;
-
-function HomeScreen({ route, navigation }: Props) {
+function HomeScreen({ navigation }: HomeScreenProps) {
   const { error, data, loading } = useQuery(GET_USERS);
   const [users, setUsers] = useState<User[]>([]);
   const [user, setUser] = useState<User>();
@@ -26,7 +23,10 @@ function HomeScreen({ route, navigation }: Props) {
 
   return (
     <View>
-      <Button title="Click to exit" onPress={() => navigation.push("Exit")} />
+      <Button
+        title="Click to exit"
+        onPress={() => navigation.navigate("Exit")}
+      />
     </View>
   );
 }
@@ -40,4 +40,4 @@ run android emualtor on expo client
 */
 
 /* need to have emulator running + run expo client */
-export default HomeScreen;
+export { HomeScreen };
