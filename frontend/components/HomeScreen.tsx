@@ -22,7 +22,7 @@ function HomeScreen({ route, navigation }: Props) {
     }
   }, [data]);
 
-  if (loading) return <h1> Loading</h1>;
+  if (loading) return <Text>Loading!</Text>;
 
   return (
     <View>

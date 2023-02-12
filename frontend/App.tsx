@@ -44,4 +44,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default registerRootComponent(App);
+AppRegistry.registerComponent("main", () => App);
