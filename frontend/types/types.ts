@@ -8,3 +8,7 @@ export type User = {
   city?: string;
   age?: string;
 };
+
+export type UserResponse = {
+  value: User;
+};

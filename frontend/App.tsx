@@ -3,6 +3,8 @@ import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { AppRegistry } from "react-native";
+import { registerRootComponent } from "expo";
 import HomeScreen from "./components/HomeScreen";
 import ExitScreen from "./components/ExitScreen";
 
@@ -20,7 +22,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-export default function Main() {
+const App = () => {
   return (
     <ApolloProvider client={client}>
       <NavigationContainer>
@@ -31,7 +33,7 @@ export default function Main() {
       </NavigationContainer>
     </ApolloProvider>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -41,3 +43,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+export default registerRootComponent(App);

@@ -2,39 +2,42 @@ import React, { useEffect, useState } from "react";
 import { View, Button, Text } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../App";
-import { gql, useQuery } from "@apollo/client";
-import { User } from "../types/schema-types";
+import { useQuery } from "@apollo/client";
+import { User, UserResponse } from "../types/types";
+import { GET_USERS } from "../graphql/queries";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
-const GET_USERS = gql`
-  query {
-    users {
-      id
-      firstName
-      lastName
-    }
-  }
-`;
-
 function HomeScreen({ route, navigation }: Props) {
   const { error, data, loading } = useQuery(GET_USERS);
+  const [users, setUsers] = useState<User[]>([]);
+  const [user, setUser] = useState<User>();
 
-  if (loading) {
-    console.log("Loading!");
-    return <h1>Loading!</h1>;
-  }
+  useEffect(() => {
+    if (!data) return;
+    if (data?.getUsers) {
+      const users: User[] = data.getUsers;
+      setUsers(users);
+      setUser(users[0]);
+    }
+  }, [data]);
 
-  //   @TODO: put this in useEffect
-  const users: User[] = data.users;
-  const currentUser: User = users[0];
+  if (loading) return <h1> Loading</h1>;
 
   return (
     <View>
-      <Text>Welcome {currentUser.firstName}</Text>
       <Button title="Click to exit" onPress={() => navigation.push("Exit")} />
     </View>
   );
 }
 
+/* 
+download android studio + sdk
+download adb
+create a device
+set up ANDROID_SDK 
+run android emualtor on expo client
+*/
+
+/* need to have emulator running + run expo client */
 export default HomeScreen;
