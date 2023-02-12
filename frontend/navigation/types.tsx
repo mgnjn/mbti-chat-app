@@ -4,10 +4,10 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 export type RootStackParamList = {
   Home: undefined;
   Exit: undefined;
-  LeftDrawer: NavigatorScreenParams<SideDrawerParamList>;
+  LeftDrawer: NavigatorScreenParams<LeftDrawerParamList>;
 };
 
-export type SideDrawerParamList = {
+export type LeftDrawerParamList = {
   Profile: undefined;
 };
 
@@ -19,4 +19,9 @@ export type ExitScreenProps = NativeStackScreenProps<
 export type HomeScreenProps = NativeStackScreenProps<
   RootStackParamList,
   "Home"
+>;
+
+export type LeftDrawerProps = NativeStackScreenProps<
+  RootStackParamList,
+  "LeftDrawer"
 >;

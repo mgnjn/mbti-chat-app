@@ -28,7 +28,6 @@ const App = () => {
         <Stack.Navigator>
           <Stack.Screen name="LeftDrawer" component={LeftDrawer} />
           <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Exit" component={ExitScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </ApolloProvider>

@@ -5,7 +5,7 @@ import { useQuery } from "@apollo/client";
 import { User } from "../types/types";
 import { GET_USERS } from "../graphql/queries";
 
-function HomeScreen({ navigation }: HomeScreenProps) {
+const HomeScreen = ({ navigation }: HomeScreenProps) => {
   const { error, data, loading } = useQuery(GET_USERS);
   const [users, setUsers] = useState<User[]>([]);
   const [user, setUser] = useState<User>();
@@ -23,13 +23,13 @@ function HomeScreen({ navigation }: HomeScreenProps) {
 
   return (
     <View>
-      <Button
-        title="Click to exit"
-        onPress={() => navigation.navigate("Exit")}
-      />
+      <Text>
+        {" "}
+        {user?.firstName ? `Welcome ${user?.firstName}` : "Please log in"}
+      </Text>
     </View>
   );
-}
+};
 
 /* 
 download android studio + sdk

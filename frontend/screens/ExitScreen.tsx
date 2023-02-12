@@ -1,7 +1,5 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
 import { View, Button } from "react-native";
-import { RootStackParamList } from "../navigation/types";
 import { ExitScreenProps } from "../navigation/types";
 
 const ExitScreen = ({ navigation }: ExitScreenProps) => {
