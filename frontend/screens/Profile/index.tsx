@@ -8,12 +8,12 @@ const ProfileScreen = ({ route, navigation }: ProfileScreenProps) => {
   const { loading, error, users } = useUsers();
   const [user, setUser] = useState<User>(); // temporary for now
 
-  if (loading) return <Text> Loading</Text>;
-  if (error) return <Text> Error!</Text>;
-
   useEffect(() => {
     setUser(users[0]);
-  }, []);
+  }, [users]);
+
+  if (loading) return <></>;
+  if (error) return <></>;
 
   return (
     <ScrollView style={styles.content}>
