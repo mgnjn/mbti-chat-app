@@ -1,12 +1,12 @@
 import { View, Text } from "react-native";
 import React from "react";
 
-const Profile = () => {
+const MessagesScreen = () => {
   return (
     <View>
-      <Text>Profile</Text>
+      <Text>Messages</Text>
     </View>
   );
 };
 
-export { Profile };
+export { MessagesScreen };

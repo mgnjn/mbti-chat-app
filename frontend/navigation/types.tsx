@@ -1,27 +1,29 @@
-import { NavigatorScreenParams } from "@react-navigation/native";
+import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
+import { DrawerScreenProps } from "@react-navigation/drawer";
+import { CompositeScreenProps } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-export type RootStackParamList = {
-  Home: undefined;
-  Exit: undefined;
-  LeftDrawer: NavigatorScreenParams<LeftDrawerParamList>;
+export type BottomTabParamList = {
+  HomeDrawer: NativeStackScreenProps<HomeDrawerParamList>;
+  Messages: undefined;
 };
 
-export type LeftDrawerParamList = {
+export type HomeDrawerParamList = {
+  Home: undefined;
   Profile: undefined;
 };
 
-export type ExitScreenProps = NativeStackScreenProps<
-  RootStackParamList,
-  "Exit"
+export type HomeScreenProps = CompositeScreenProps<
+  DrawerScreenProps<HomeDrawerParamList, "Home">,
+  BottomTabScreenProps<BottomTabParamList, "HomeDrawer">
 >;
 
-export type HomeScreenProps = NativeStackScreenProps<
-  RootStackParamList,
-  "Home"
+export type ProfileScreenProps = DrawerScreenProps<
+  HomeDrawerParamList,
+  "Profile"
 >;
 
-export type LeftDrawerProps = NativeStackScreenProps<
-  RootStackParamList,
-  "LeftDrawer"
->;
+/* 
+- each navigator (left drawer/bottom tab) has screens. for ts, 
+  we need to define the types of the screens (and their paramters)
+*/

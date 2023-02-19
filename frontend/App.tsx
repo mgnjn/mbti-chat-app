@@ -1,34 +1,45 @@
 import "react-native-gesture-handler";
-import React from "react";
-import { StyleSheet } from "react-native";
+import * as React from "react";
+import { StyleSheet, Platform, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { AppRegistry } from "react-native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { HomeScreen, ProfileScreen, MessagesScreen } from "./screens";
+import { BottomTabParamList, HomeDrawerParamList } from "./navigation/types";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
-import { RootStackParamList } from "./navigation/types";
+const Tab = createBottomTabNavigator<BottomTabParamList>();
+const HomeDrawer = createDrawerNavigator<HomeDrawerParamList>();
 
-import { HomeScreen } from "./screens/HomeScreen";
-import { ExitScreen } from "./screens/ExitScreen";
-import { LeftDrawer } from "./screens/SideDrawer";
-
-const Stack = createNativeStackNavigator<RootStackParamList>();
-
-// setup for ApolloClient
-const serverLink = "http://localhost:3000/graphql";
+const address = Platform.OS === "android" ? `10.0.2.2` : "localhost";
 const client = new ApolloClient({
-  uri: serverLink,
+  uri: `http://${address}:3000/graphql`,
   cache: new InMemoryCache(),
 });
+
+const HomeDrawerNavigator = () => {
+  return (
+    <HomeDrawer.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        drawerPosition: "left",
+      }}
+    >
+      <HomeDrawer.Screen name="Home" component={HomeScreen} />
+      <HomeDrawer.Screen name="Profile" component={ProfileScreen} />
+    </HomeDrawer.Navigator>
+  );
+};
 
 const App = () => {
   return (
     <ApolloProvider client={client}>
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="LeftDrawer" component={LeftDrawer} />
-          <Stack.Screen name="Home" component={HomeScreen} />
-        </Stack.Navigator>
+        <Tab.Navigator screenOptions={{ headerShown: false }}>
+          <Tab.Screen name="HomeDrawer" component={HomeDrawerNavigator} />
+          <Tab.Screen name="Messages" component={MessagesScreen} />
+        </Tab.Navigator>
       </NavigationContainer>
     </ApolloProvider>
   );
@@ -44,3 +55,8 @@ const styles = StyleSheet.create({
 });
 
 AppRegistry.registerComponent("main", () => App);
+
+/* 
+- URI changes depending on if you ahve android or on web
+- can't see tab navigator on web for some reason?
+*/
